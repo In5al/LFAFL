@@ -30,17 +30,18 @@ print("")
 
 accepts(automaton,"lamda")
 accepts(automaton,"abcdbdc")
-
+'''
+Lab2
+'''
 grammar2 = [
-    "S -> aP",
-    "S -> bQ",
-    "P -> bP",
-    "P -> cP",
-    "P -> dQ",
-    "P -> e",
-    "Q -> eQ",
-    "Q -> fQ",
-    "Q -> a"
+    "S -> aD",
+    "D -> bE",
+    "E -> cF",
+    "E -> dL",
+    "F -> dD",
+    "L -> aL",
+    "L -> bL",
+    "L -> c"
 ]
 grammar3 = fa_to_grammar(automaton)
 print("\n the set of productions of the generated grammer")
@@ -56,16 +57,16 @@ print(equal)
 print("equal to the original\n")
 
 nfa_states = {'q0', 'q1', 'q2', 'q3'}
-nfa_alphabet = {'a', 'b', 'c'}
+nfa_alphabet = {'a', 'b'}
 nfa_transitions = {
-    ('q0', 'a'): {'q0', 'q1'},
-    ('q1', 'c'): {'q1'},
+    ('q0', 'a'): {'q1'},
+    ('q1', 'a'): {'q1'},
     ('q1', 'b'): {'q2'},
-    ('q2', 'b'): {'q3'},
+    ('q2', 'b'): {'q2', "q3"},
     ('q3', 'a'): {'q1'}
 }
 nfa_start_state = 'q0'
-nfa_accept_states = {'q2'}
+nfa_accept_states = {'q3'}
 
 nfa = FA(nfa_states, nfa_alphabet, nfa_transitions, nfa_start_state, nfa_accept_states)
 
@@ -93,18 +94,7 @@ print("the third grammer is: " + classify_grammar(grammer2))
 
 print("\n" + Is_DFA(automaton))
 
-new_dfa = DFA(
-    states= {"S", "Q", "P"},
-    input_symbols={'a', 'b', 'e', 'f', 'c', 'd'},
-    transitions={
-        "S": {'a': 'P', 'b': 'Q'},
-        "Q": {'e': 'Q', 'f': 'Q', 'a': "Q"},
-        "P": {'b': 'P', 'c': 'P', 'd': 'Q', 'e': "P"}
-    },
-    initial_state='S',
-    final_states={"Q", "P"},
-    allow_partial=True
-)
+
 '''
 Lab 3
 

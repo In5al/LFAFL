@@ -1,6 +1,10 @@
 # Lexer & Scanner
-### Course: Formal Languages & Finite Automata
-### Author: Al Haj Ahmed
+
+## University: Technical University of Moldova
+
+## Course: Formal Languages & Finite Automata
+
+### Author: Carp Dan-Octavian
 ----
 
 ## Theory

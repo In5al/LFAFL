@@ -33,39 +33,50 @@ To classify the grammar according to the Chomsky hierarchy, a function called cl
         for production in grammar[nonterminal]:
             if len(production) > 2:
                 is_regular = False
-                break
+                break             
+```
+
+At this moment we check each production rule for a specific nonterminal in the grammar and sets the is_regular flag to False if any production rule has a   length greater than 2, breaking the loop.               
+```
             if len(production) == 2:
                 if (production[0].islower() and production[1].islower()) or (production[0].isupper() and production[1].isupper()):
                     is_regular = False
                     break
 ```
-This part of the code checks each production rule in a grammar to determine if it is a regular grammar. If a rule has more than two symbols or if both symbols are of the same type (either all uppercase or all lowercase), the grammar is marked as not regular. The code sets a flag to indicate whether the grammar is regular or not based on these checks.
+Additionally code sets the is_regular flag to False and breaks the loop if a production rule has a length of 2 and both symbols in the rule are either both lowercase letters (terminals) or both uppercase letters (nonterminals).In both cases it results that we are not dealing with regular grammar so we check if it's part of the other types.To note that it starts as Regular as it is the most restrained type and we slowly are making our way to Unrestricted Grammar
 ```
         for production in grammar[nonterminal]:
             if len(production) < len(nonterminal) or len(nonterminal) < 2:
                 is_context_sensitive = False
                 break
+```
+As we verify for the second type here we set the is_context_sensitive flag to False and break the loop if a production rule has a length smaller than the length of the nonterminal or if the length of the nonterminal itself is less than 2. This indicates that the grammar does not satisfy the conditions of a context-sensitive grammar.
+```
         if not is_context_sensitive:
             break
     if is_context_sensitive:
         return "Type 2: Context-free grammar"
 ```
-This part examines the production rules associated with a specific nonterminal in a grammar to determine if it is a context-sensitive grammar. It checks the length of each production rule and the nonterminal itself. If any rule has a length smaller than the nonterminal or the nonterminal's length is less than 2, the grammar is not considered context-sensitive. If all rules meet the conditions, the code returns "Type 2: Context-free grammar" as the classification.
-
+Now if the is_context_sensitive flag is False, meaning that at least one production rule did not satisfy the conditions(but they both confirm if it's of a Type 2), then we break the loop. But, if the flag remains True after checking all the production rules, then e can assumme that we have Type 1 known as a Context-Free grammar 
 ```
 is_context_free = True
     for nonterminal in grammar:
         if len(nonterminal) > 1:
             is_context_free = False
+            
+ ```
+ We continue to add more conditions so that we would know how to classify our grammar here we initialize the is_context_free flag as True. It then iterates through each nonterminal in the grammar. If a nonterminal has a length greater than 1, it means that the grammar does not satisfy the conditions of a context-free grammar. In this case, the is_context_free flag is set to False, indicating that the grammar is not context-free.But that doesnt't mean it is Context Sensitive either
+ ```
     if is_context_free:
         return "Type 1: Context-sensitive grammar"
 ```
-This code examines nonterminals in the grammar to determine if it is a context-sensitive grammar. Check the length of each non-terminus and set the flag accordingly. If all non-terminal characters have length 1, the grammar is classified as a context-sensitive grammar. 
+If the is_context_free flag is True, which implies that all nonterminals have a length of 1, then we have a Context-Sensitive-Grammar and that is confirmed by the return message. So we see that the program checks at every level what type of grammar we have it can become more restrained or less 
 ```
  If none of the above conditions are met, the grammar is an unrestricted grammar
     return "Type 0: Unrestricted grammar"
 ```
-And laslty, if not a single requiremt is met then we have a Type 0,known as Unrestricted Grammar.So we return that.
+
+And laslty, if not a single requiremt is met, which means that not a single classification was fitted for our grammar, then we have a Type 0,known as Unrestricted Grammar.So we return that.
 
 * to convert the FA back to a grammer i added a the function "fa_to_grammer"(in the automaton file) that takes the automaton as an atr and converts into a grammer by looking at the transactions and taking every state and deriving it to the production first and secound element and to just the first if it's a terminal state.
 we take the transition table from the automaton as an attribute and use it to create the production table(grammer) as we take every nonterminal from the transitions and pair it with the left side one by one

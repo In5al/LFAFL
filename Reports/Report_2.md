@@ -24,9 +24,11 @@
 
 
 ## Implementation description
-* first of all to classify the grammar acording to chomsky hierchy i created a function called classify_grammer(in the grammar file) that takes atr. the grammar(the production table) and classifies it by checking the grammer against every type's rule
-
-first we check if the grammer is regular by checking the number of non-terminals on the left and if it matches we check the right side of the production to check if it's left or right side production
+```
+def classify_grammar(grammar):
+    is_regular = True
+```
+To classify the grammar according to the Chomsky hierarchy, a function called classify_grammar was created in the grammar file. This function takes the grammar (production table) as input and determines its classification by comparing it against the rules of each grammar type.
 ```
         for production in grammar[nonterminal]:
             if len(production) > 2:
@@ -37,7 +39,7 @@ first we check if the grammer is regular by checking the number of non-terminals
                     is_regular = False
                     break
 ```
-then we check if the grammer is a context free grammer by checking if the number of the nonterminals in the right side larger or equal to the left side
+This part of the code checks each production rule in a grammar to determine if it is a regular grammar. If a rule has more than two symbols or if both symbols are of the same type (either all uppercase or all lowercase), the grammar is marked as not regular. The code sets a flag to indicate whether the grammar is regular or not based on these checks.
 ```
         for production in grammar[nonterminal]:
             if len(production) < len(nonterminal) or len(nonterminal) < 2:
@@ -48,7 +50,8 @@ then we check if the grammer is a context free grammer by checking if the number
     if is_context_sensitive:
         return "Type 2: Context-free grammar"
 ```
-then we Check if the grammar is a context-free grammar and after excluding that it can't be niether regular or context-free we just need to check that the left part non-terminals are more than one symbol
+This part examines the production rules associated with a specific nonterminal in a grammar to determine if it is a context-sensitive grammar. It checks the length of each production rule and the nonterminal itself. If any rule has a length smaller than the nonterminal or the nonterminal's length is less than 2, the grammar is not considered context-sensitive. If all rules meet the conditions, the code returns "Type 2: Context-free grammar" as the classification.
+
 ```
 is_context_free = True
     for nonterminal in grammar:
@@ -57,11 +60,12 @@ is_context_free = True
     if is_context_free:
         return "Type 1: Context-sensitive grammar"
 ```
-and if none of the above it's type 0
+This code examines nonterminals in the grammar to determine if it is a context-sensitive grammar. Check the length of each non-terminus and set the flag accordingly. If all non-terminal characters have length 1, the grammar is classified as a context-sensitive grammar. 
 ```
  If none of the above conditions are met, the grammar is an unrestricted grammar
     return "Type 0: Unrestricted grammar"
 ```
+And laslty, if not a single requiremt is met then we have a Type 0,known as Unrestricted Grammar.So we return that.
 
 * to convert the FA back to a grammer i added a the function "fa_to_grammer"(in the automaton file) that takes the automaton as an atr and converts into a grammer by looking at the transactions and taking every state and deriving it to the production first and secound element and to just the first if it's a terminal state.
 we take the transition table from the automaton as an attribute and use it to create the production table(grammer) as we take every nonterminal from the transitions and pair it with the left side one by one

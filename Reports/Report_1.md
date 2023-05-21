@@ -1,46 +1,56 @@
-# The title of the work
-
-### Course: Formal Languages & Finite Automata
-### Author: Al Haj Ahmed FAF211
+# Intro to formal languages. Regular grammars. Finite Automata.
+## University: Technical University of Moldova
+## Course: Formal Languages & Finite Automata
+### Author: Carp Dan-Octavian
 
 ----
 
 ## Theory
-what's a formal language? It's a set of rules, an alphabet and a bunch of transactions which define how the letters/symboles interact with each other to create a word 
-in this lab-work we were tasked to learn more about the regular grammer and there's two kinds of it: left side and right, the difference between the is that the Non-terminal variable is on the left in the left one and on the right in the right one.
+A formal language is a set of finite-length sequences of symbols that are constructed according to a set of well-defined rules or grammar. These sequences are often called strings, and the symbols used to construct the strings are drawn from a finite set of characters, called the alphabet.
 
-the main rules in this grammer is that you have to have one non-terminal variable on the left which can derevate to a terminal variable or a terminal var with a non terminal on it's right in order to get longer words, it's the most restricted grammer and used to model the human language and normal speech.
+Formal languages are used to describe various types of languages, including programming languages, regular languages, context-free languages, and others. The rules that govern formal languages are usually defined using a set of production rules, which specify how the symbols in the language can be combined to form valid strings.
 
-what do you need in a grammer ? first of all you need the alphabet(that's the symboles you'll use in your words) then you'll need to identify the terminal and non terminal variable, they're usually denoted by size so the big letters for non-terminal vars and the small for the terminal ones, next you'll need your production table in this table you need to put the rules and which non-terminal var goes to what terminal one and the different comboes that can be formed from this, you can try to imagine all the posabilites but usualy they're displayed in a derivation tree to be easly understood and modeled.
+In the context of formal languages and finite state machines, a grammar refers to a set of rules for constructing sequences of strings or symbols that are valid in a formal language. These rules define how language symbols are combined to form valid strings associated with the language.
 
-and lastly we have the automaton, what's an automaton? you wonder, well to put it simply it's a checking mechanism that checks different words if they belong in the grammer or language or not and it's done by the graph i mentioned earlier in which we check every symbol if it has a coresponding non terminal variable and if the whole word can be produced by our grammer, and automaton scans every symbol and compares it to the list of tuples that he has as the transactions of that grammer.
+Grammar is often described using production rules that specify how symbols are replaced or combined to form new symbols or strings. For example, a production rule may stipulate that symbol A can be replaced by a series of symbols "BCD", or symbol B can be replaced by symbol "a".
+
+There are several types of grammars commonly used in formal language theory, including regular grammars, context-free grammars, and context-sensitive grammars. The type of grammar used to describe a particular formal language depends on the complexity of the language and the types of strings the language can produce.
+
+Grammar plays an important role in the study of formal languages and finite automata because it provides a way to formally describe and analyze the structure and behavior of languages. By defining the rules for constructing strings that are valid in the language, grammars allow us to think about the properties of the language and the algorithms and systems that process linguistic input. 
+
+A finite state machine is a mathematical model used to identify and control formal languages. This model consists of a set of states, inputs, transitions, and outputs which can be employed to depict the behaviour of a machine that processes verbal input. An FSM goes through symbols from an alphabet one at a time, transitioning from one state to another in agreement with a set of transition rules that decide how it responds to each symbol. It can be used to recognize and generate language strings, as well as to determine if a string is part of a certain language. There are various types of finite automata like deterministic finite automata (DFA), nondeterministic finite automata (NFA), and pushdown automata (PDA) with distinct capabilities and restrictions.
+
 
 
 ## Objectives:
 
-* to create a git repository
-* to choose a programming language
-* create a prgrame that generates 5 word from the grammer 
-* create a finite automaton that checks if a word belongs to the grammer
+
+* Get familiar with formal languages, regular grammars & finite automata.
+* Implement functionality for regular grammars and finite automata.
+* Showcase the execution of the program.
 
 
 ## Implementation description
 
-* About 2-3 sentences to explain each piece of the implementation.
-
-
-* Code snippets from your files.
-the word generating function
 ```
 grammar = {
-    "S": ["aP", "bQ"],
-    "P": ["bP", "cP","dQ","e"],
-    "Q": ["eQ", "fQ","a"]
+    "S": ["aD"],
+    "D": ["bE"],
+    "E": ["cF", "dL"],
+    "F": ["dD"],
+    "L": ["aL","bL","c"]
+}
+```
+* Here we define the grammar rules for our language. We begin by defining the start symbol "S" . It generates a sentence with a non-terminal "D" following a terminal 'a'.The non-terminal "D" generates a terminal 'b' followed by a non-terminal "E".The non-terminal "E" can generate either a terminal 'c' followed by non-terminal "F" or a terminal 'd' followed by non-terminal "L".The non-terminal "F" generates a terminal 'd' followed by non-terminal "D".The non-terminal "L" can generate itself recursively (left recursion) or a terminal 'c'
 
+```
 def generate_word(grammar, start_symbol):
     word = "S"
     current_symbol = start_symbol
     while True:
+ ```
+ We define a function to generate a word based on a given grammar and start symbol. We start by initializing the word with the start symbol then we set the current symbol to the start symbol.We repeat until a word is generated or the process is terminated:
+ ```
         if current_symbol not in grammar:  # if current symbol is terminal
             word += current_symbol  # add to the word
             current_symbol = "end"
@@ -51,7 +61,16 @@ def generate_word(grammar, start_symbol):
             if current_symbol == "end":  # if end symbol is reached, return the word
                 word = word.replace("end","")
                 return word[:-1]  # remove the end symbol
-
+```
+If the current symbol is a terminal then we: <br /> 
+1.Add it to the word <br />
+2.Set current symbol as "end" to indicate reaching the end of the word <br />
+3.If the word is empty, return None <br />
+4.If the word is too long, return None <br />
+5.If the end symbol is reached, return the word <br />
+6.Remove the "end" symbol <br />
+7.Remove the last character (which was "end")
+```
         else:
             rhs = random.choice(grammar[current_symbol])  # choose a random rule
             word = word.replace(current_symbol,rhs[0])
@@ -59,12 +78,18 @@ def generate_word(grammar, start_symbol):
                 word += symbol
             current_symbol = word[-1]  # set current symbol to the last character in the word
  ```
- the automaton creating code 
+ If the current symbol is a non-terminal then we: <br />
+ 1.Choose a random rule from the grammar <br />
+ 2.Replace the current symbol in the word with the first character of the chosen rule <br />
+ 3.Add the remaining symbols of the rule to the word <br />
+ 4.Set the current symbol to the last character in the word <br />
  ```
  def create_automaton(grammar):
-    # Step 1: Define the states of the automaton
     states = set([rule[0] for rule in grammar])
-
+ ```
+ Here we define a function to create an automaton based on a given grammar.We start by defining the states of the automaton.We create a set of states by extracting the first element of each rule in the grammar
+ ```
+ 
     # Step 2: Define the transitions between states
     transitions = {}
     for state in states:
@@ -82,16 +107,28 @@ def generate_word(grammar, start_symbol):
                         transitions[state].append((rule[2], rule[1]))
                     else:
                         transitions[state] = [(rule[2], rule[1])]
+                        
+```
+ In the next step we define the transitions between states. We start by initializing an empty dictionary to store the transitions. We then iterate over each state.In the second for we iterate over each rule in the grammar.We check if the first element of the rule matches the current state. In the second if we check if the second element of the rule is an empty string, it represents an epsilon transition. We verify if the current state already exists in the transitions dictionary, if it exists we append the target state and None (representing epsilon) to the existing list of transitions for the current state otherwise we create a new list with the target state and None as the transition and add it to the transitions dictionary. Now if it's a regular transition then first we check if the current state already exists in the transitions dictionary. If it does then we append the target state and the second element of the rule to the existing list of transitions for the current state. If not then we create a new list with the target state and the second element of the rule as the transition and add it to the transitions dictionary.
+```
 
     # Step 3: Identify the start state of the automaton
     start_state = grammar[0][0]
 
+```
+We continue by identifing the start state of the automaton.We assign the first symbol of the first rule in the grammar as the start state of the automaton
+start_state = grammar[0][0]
+```
     # Step 4: Identify the accepting states of the automaton
     accepting_states = set()
     for state in states:
         for rule in grammar:
             if rule[0] == state and rule[1] == "":
                 accepting_states.add(state)
+ ```
+ This part involves identifying the accepting states of the automaton.It further explains how an empty set is initialized, and then, for each state in the set of states, we check if any rule in the grammar matches the current state as the first symbol and an empty string as the second symbol. If there is a match, the current state is added to the set of accepting states.
+
+ ```
 
     # Construct the automaton
     automaton = {"states": states,
@@ -101,43 +138,67 @@ def generate_word(grammar, start_symbol):
 
     return automaton
 ```
- 
- 
- the checking mechanism that checks the word to the automaton created
+ Finally, an automaton dictionary is constructed using the identified states, transitions, start state, and accepting states, which is then returned as the result.
 ```
 def accepts(automaton, word):
     current_state = automaton['start_state']
+    
+ ```
+ We also define a function to check if an automaton accepts a given word.We start by setting the current state to the start state of the automaton
+ ```
     for char in word:
         exists = False
         for symbol in automaton['transitions'][current_state]:
             if char == symbol[0]:
                 current_state = symbol[1]
                 exists = True
-
+```
+We begin by iterating over each character in the word.First we initialize a boolean variable to track if a transition exists for the current character. Next we iterate over the symbols in the transitions for the current state, if the current character matches the first symbol of the transition then we set the current state to the next state indicated by the transition we also set the exists variable to True to indicate that a transition exists for the current character
+```
         if current_state is None:
             print(f"{word} is in this grammer")
+```
+If the current state is None, then we print that the word is in the grammar
+```
 
         elif exists == False:
             # The current state does not have a transition on the current character
             print(f"{word} is not in this grammer")
             break
 ```
-
+And finally if exists is still False,meaning that no transition exists for the current character,then we print that the word is not in the grammar and exit the loop
 
 
 ## Conclusions / Screenshots / Results
-in this laboratory work i learned what's an automaton and how to implement them in code which was the most diffecult part and how to generate words in code and how to create it, i had some help and had to rewrite the code a couple of times but i got it working eventually, i hope i learned smth at least and looking forword to next lab.
+This lab focused on grammars and automata. We started by defining a grammar with production rules for generating words. We then used the grammar to identify the states and transitions of the automaton and created the automaton.
 
-## reuslts:
-the automaton created:
-{'states': {'S', 'P', 'Q'}, 'transitions': {'S': [('a', 'P'), ('b', 'Q')], 'P': [('b', 'P'), ('c', 'P'), ('d', 'Q'), ('e', None)], 'Q': [('e', 'Q'), ('e', 'Q'), ('f', 'Q'), ('a', None)]}, 'start_state': 'S', 'accepting_states': {'P', 'Q'}}
+To check if the automaton accepts a particular word, I implemented a function that iterates over each letter in the word. Find valid transitions in the current state and update the state accordingly. If the loop completes without reaching the accepting state, it means the word is not in the grammar.
 
-here are 5 words from given grammer
-ace
-befa
-accbbbdea
-None
-ae
+There were comments explaining the purpose and logic behind each step.
 
-ace is in this grammer
-ohno is not in this grammer
+In this lab, we started working with grammars and automata and demonstrated their application in word generation and acceptance testing. Understanding these concepts is essential for students interested in formal languages ​​and computational linguistics. 
+
+## Final Results:
+```
+{'states': {'F', 'E', 'D', 'L', 'S'}, 'transitions': {'F': [('d', 'D')], 'E': [('c', 'F'), ('d', 'L')], 'D': [('b', 'E')], 'L': [('a', 'L'), ('b', 'L'), ('c', None)], 'S': [('a', 'D')]}, 'start_state': 'S', 'accepting_states': {'L'}}
+
+here are 5 words from given grammar
+abdabac
+abdc
+abdc
+abdaac
+abdbbbbc
+
+lamda is not in this grammer
+abcdbdc is in this grammer
+```
+
+"abdabac" - This word is not in the grammar.
+
+"abdc" - This word is in the grammar.
+
+"abdc" - This word is in the grammar as well.
+
+"abdaac" - This word is not in the grammar.
+
+"abdbbbbc" - This word is in the grammar.

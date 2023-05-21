@@ -172,7 +172,7 @@ print("\n" + Is_DFA(automaton))
 ## Conclusions / Screenshots / Results
 in this lab i learned more about the NFA and DFA automatons and the main defirences between them and how to convert an NFA into a DFA in code (which wasn't easy) and learned more about every type in the chomsky hierchy and some interesting external libraries that have all this implemented that can be easly used.
 
-## reuslts:
+## Output:
 i kept the results as is from last lab to keep proof that everything works still 
 
 the automaton based on the given grammar

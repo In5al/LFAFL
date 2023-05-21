@@ -107,7 +107,7 @@ If the current symbol is a terminal then we: <br />
 
 ```
 We continue by identifing the start state of the automaton.We assign the first symbol of the first rule in the grammar as the start state of the automaton
-start_state = grammar[0][0]
+`start_state = grammar[0][0]`
 ```
     # Step 4: Identify the accepting states of the automaton
     accepting_states = set()
@@ -166,7 +166,7 @@ To check if the automaton accepts a particular word, I implemented a function th
 
 There were comments explaining the purpose and logic behind each step.
 
-In this lab, we started working with grammars and automata and demonstrated their application in word generation and acceptance testing. Understanding these concepts is essential for students interested in formal languages ​​and computational linguistics. 
+In this lab, we started working with grammars and automata and demonstrated their application in word generation and acceptance testing. Understanding these concepts is essential for students interested in formal languages and computational linguistics. 
 
 ## Final Results:
 ```

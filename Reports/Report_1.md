@@ -6,9 +6,9 @@
 ----
 
 ## Theory
-Formal languages are sets of finite-length sequences of symbols constructed according to well-defined grammar rules. These languages describe programming languages and other language types. Grammar defines how symbols are combined to form valid strings using production rules. Different types of grammars, such as regular and context-free grammars, capture different language complexities. Grammar plays a crucial role in formal language theory, enabling analysis of language structure and behavior.
+* Formal languages are sets of finite-length sequences of symbols constructed according to well-defined grammar rules. These languages describe programming languages and other language types. Grammar defines how symbols are combined to form valid strings using production rules. Different types of grammars, such as regular and context-free grammars, capture different language complexities. Grammar plays a crucial role in formal language theory, enabling analysis of language structure and behavior.
 
-Finite state machines (FSMs) are mathematical models for recognizing and controlling formal languages. FSMs process symbols sequentially, transitioning between states based on rules. They can recognize, generate, and determine membership in a language. Various types of FSMs, such as deterministic and nondeterministic finite automata, have different capabilities. FSMs are essential for language processing and algorithm development.
+* Finite state machines (FSMs) are mathematical models for recognizing and controlling formal languages. FSMs process symbols sequentially, transitioning between states based on rules. They can recognize, generate, and determine membership in a language. Various types of FSMs, such as deterministic and nondeterministic finite automata, have different capabilities. FSMs are essential for language processing and algorithm development.
 
 
 

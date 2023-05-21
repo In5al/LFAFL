@@ -9,25 +9,27 @@ import os
 os.environ["PATH"] += os.pathsep + 'D:/Program Files (x86)/Graphviz2.38/bin/'
 # Define the regular grammar
 grammar = {
-    "S": ["aP", "bQ"],
-    "P": ["bP", "cP","dQ","e"],
-    "Q": ["eQ", "fQ","a"]
+    "S": ["aD"],
+    "D": ["bE"],
+    "E": ["cF", "dL"],
+    "F": ["dD"],
+    "L": ["aL","bL","c"]
 }
-grammar1 = [("S","P","a"),("S","Q","b"),("P","P","b"),("P","P","c"),("P","Q","d"),
-            ("P","","e"),("Q","Q","e"),("Q","Q","f"),("Q","","a")]
+grammar1 = [("S","D","a"),("D","E","b"),("E","F","c"),("E","L","d"),("F","D","d"),
+            ("L","L","a"),("L","L","b"),("L","","c")]
 
 automaton = create_automaton(grammar1)
 print("the automaton based on the given grammar")
 print(automaton)
 
-print("\nhere are 5 words from given grammer")
+print("\nhere are 5 words from given grammar")
 for _ in range(5):
     word = generate_word(grammar,"S")
     print(word)
 print("")
 
-accepts(automaton,"ace")
-accepts(automaton,"ohno")
+accepts(automaton,"lamda")
+accepts(automaton,"abcdbdc")
 
 grammar2 = [
     "S -> aP",
@@ -103,7 +105,10 @@ new_dfa = DFA(
     final_states={"Q", "P"},
     allow_partial=True
 )
+'''
+Lab 3
 
+'''
 string = '''
 public class Test {
 
@@ -128,7 +133,11 @@ public class Test {
 '''
 
 tokenize(string)
+'''
 
+Lab 4
+
+'''
 Vn = ['S','A','B','C','D','E']
 Vt = ['a','b']
 S = 'S'

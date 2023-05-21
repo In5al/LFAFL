@@ -1,27 +1,33 @@
-# The title of the work
-
-### Course: Formal Languages & Finite Automata
-### Author: Al Haj Ahmed FAF211
+# Intro to formal languages. Regular grammars. Finite Automata.
+## University: Technical University of Moldova
+## Course: Formal Languages & Finite Automata
+### Author: Carp Dan-Octavian
 
 ----
 
 ## Theory
-what's a formal language? It's a set of rules, an alphabet and a bunch of transactions which define how the letters/symboles interact with each other to create a word 
-in this lab-work we were tasked to learn more about the regular grammer and there's two kinds of it: left side and right, the difference between the is that the Non-terminal variable is on the left in the left one and on the right in the right one.
+A formal language is a set of finite-length sequences of symbols that are constructed according to a set of well-defined rules or grammar. These sequences are often called strings, and the symbols used to construct the strings are drawn from a finite set of characters, called the alphabet.
 
-the main rules in this grammer is that you have to have one non-terminal variable on the left which can derevate to a terminal variable or a terminal var with a non terminal on it's right in order to get longer words, it's the most restricted grammer and used to model the human language and normal speech.
+Formal languages are used to describe various types of languages, including programming languages, regular languages, context-free languages, and others. The rules that govern formal languages are usually defined using a set of production rules, which specify how the symbols in the language can be combined to form valid strings.
 
-what do you need in a grammer ? first of all you need the alphabet(that's the symboles you'll use in your words) then you'll need to identify the terminal and non terminal variable, they're usually denoted by size so the big letters for non-terminal vars and the small for the terminal ones, next you'll need your production table in this table you need to put the rules and which non-terminal var goes to what terminal one and the different comboes that can be formed from this, you can try to imagine all the posabilites but usualy they're displayed in a derivation tree to be easly understood and modeled.
+In the context of formal languages and finite state machines, a grammar refers to a set of rules for constructing sequences of strings or symbols that are valid in a formal language. These rules define how language symbols are combined to form valid strings associated with the language.
 
-and lastly we have the automaton, what's an automaton? you wonder, well to put it simply it's a checking mechanism that checks different words if they belong in the grammer or language or not and it's done by the graph i mentioned earlier in which we check every symbol if it has a coresponding non terminal variable and if the whole word can be produced by our grammer, and automaton scans every symbol and compares it to the list of tuples that he has as the transactions of that grammer.
+Grammar is often described using production rules that specify how symbols are replaced or combined to form new symbols or strings. For example, a production rule may stipulate that symbol A can be replaced by a series of symbols "BCD", or symbol B can be replaced by symbol "a".
+
+There are several types of grammars commonly used in formal language theory, including regular grammars, context-free grammars, and context-sensitive grammars. The type of grammar used to describe a particular formal language depends on the complexity of the language and the types of strings the language can produce.
+
+Grammar plays an important role in the study of formal languages and finite automata because it provides a way to formally describe and analyze the structure and behavior of languages. By defining the rules for constructing strings that are valid in the language, grammars allow us to think about the properties of the language and the algorithms and systems that process linguistic input. 
+
+A finite state machine is a mathematical model used to identify and control formal languages. This model consists of a set of states, inputs, transitions, and outputs which can be employed to depict the behaviour of a machine that processes verbal input. An FSM goes through symbols from an alphabet one at a time, transitioning from one state to another in agreement with a set of transition rules that decide how it responds to each symbol. It can be used to recognize and generate language strings, as well as to determine if a string is part of a certain language. There are various types of finite automata like deterministic finite automata (DFA), nondeterministic finite automata (NFA), and pushdown automata (PDA) with distinct capabilities and restrictions.
+
 
 
 ## Objectives:
 
-* to create a git repository
-* to choose a programming language
-* create a prgrame that generates 5 word from the grammer 
-* create a finite automaton that checks if a word belongs to the grammer
+
+* Get familiar with formal languages, regular grammars & finite automata.
+* Implement functionality for regular grammars and finite automata.
+* Showcase the execution of the program.
 
 
 ## Implementation description

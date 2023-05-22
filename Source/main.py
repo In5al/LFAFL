@@ -1,6 +1,7 @@
 from Source.Grammar.grammer import *
 from Source.Automaton.automaton import *
 from Source.Grammar.lexer import *
+from Source.Grammar.CNF import *
 from visual_automata.fa.dfa import VisualDFA
 import visual_automata
 from visual_automata.fa.nfa import *
@@ -128,18 +129,45 @@ tokenize(string)
 Lab 4
 
 '''
-Vn = ['S','A','B','C','D','E']
-Vt = ['a','b']
-S = 'S'
-P = {
-    "S": ["aB", "AC"],
-    "A": ["a", "ASC", "BC", "aD"],
-    "B": ["b", "bS"],
-    "C": [None],
-    "D": ["abC"],
-    "E": ["aB"]
+# Vn = ['S','A','B','C','D','E']
+# Vt = ['a','b']
+# S = 'S'
+# P = {
+#     "S": ["aB", "AC"],
+#     "A": ["a", "ASC", "BC", "aD"],
+#     "B": ["b", "bS"],
+#     "C": [None],
+#     "D": ["abC"],
+#     "E": ["aB"]
+# }
+# grammar_1 = Grammar(S,Vn,Vt,P)
+#
+# normalize(grammar_1)
+
+V_N = ['S', 'A', 'B', 'C', 'E']
+V_T = ['a', 'b']
+P = {'S': ['bA', 'B'],
+     'A': ['a', 'aS', 'bAaAb', 'b'],
+     'B': ['AC', 'bS', 'aAa'],
+     'C': ['AB', 'epsilon'],
+     'E': ['BA']
 }
-grammar_1 = Grammar(S,Vn,Vt,P)
+S = 'S'
 
-normalize(grammar_1)
+grammar = ChomskyNormalForm(V_N, V_T, P, S)
 
+print('Productions:')
+print('P =', P)
+
+print('\nEliminate Epsilon:')
+grammar.eliminate_epsilon()
+
+print('\nEliminate Unit Production:')
+grammar.eliminate_unit()
+
+print('\nEliminate Innaccesible:')
+grammar.eliminate_nonproductive_inaccessible()
+
+
+print('\nChomsky Normal Form:')
+grammar.Chomsky()

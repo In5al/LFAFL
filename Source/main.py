@@ -145,3 +145,5 @@ grammar.eliminate_nonproductive_inaccessible()
 
 print('\nChomsky Normal Form:')
 grammar.Chomsky()
+
+print("---------------------------------------------------------------------------------")

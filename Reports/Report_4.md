@@ -19,13 +19,13 @@ Chomsky Normal Form(CNF) is the standard way to represent a context free languag
 
 ## Objectives:
 
-* Learn about Chomsky Normal Form (CNF) [1].
-* Get familiar with the approaches of normalizing a grammar.
-* Implement a method for normalizing an input grammar by the rules of CNF.
-    The implementation needs to be encapsulated in a method with an appropriate signature (also ideally in an appropriate class/type).
-    The implemented functionality needs executed and tested.
-* A BONUS point will be given for the student who will have unit tests that validate the functionality of the project.
-* Also, another BONUS point would be given if the student will make the aforementioned function to accept any grammar, not only the one from the student's variant.
+1. Learn about Chomsky Normal Form (CNF) [1].
+2. Get familiar with the approaches of normalizing a grammar.
+3. Implement a method for normalizing an input grammar by the rules of CNF.
+    1. The implementation needs to be encapsulated in a method with an appropriate signature (also ideally in an appropriate class/type).
+    2. The implemented functionality needs executed and tested.
+    3. A BONUS point will be given for the student who will have unit tests that validate the functionality of the project.
+    4. Also, another BONUS point would be given if the student will make the aforementioned function to accept any grammar, not only the one from the student's variant.
 
 ## Implementation description
 
@@ -196,20 +196,23 @@ Results:
 i show what happens to the productions after each step to test the functionallity of each piece of code
 so the results look smth like this:
 ```
-the grammar
-{'S': ['aB', 'AC'], 'A': ['a', 'ASC', 'BC', 'aD'], 'B': ['b', 'bS'], 'C': [None], 'D': ['abC'], 'E': ['aB']}
-eliminate epsilon production
-{'S': ['aB', 'AC'], 'A': ['a', 'ASC', 'BC', 'aD'], 'B': ['b', 'bS'], 'D': ['abC'], 'E': ['aB']}
-add the unit productions and epsilon substitutions
-{'S': ['aB', 'AC', 'A', 'a', 'ASC', 'BC', 'aD', 'AS', 'B', 'b', 'bS'], 'A': ['a', 'ASC', 'BC', 'aD', 'AS', 'B', 'b', 'bS'], 'B': ['b', 'bS'], 'D': ['abC', 'ab'], 'E': ['aB']}
-mark the unit and empty productions (C) for deletion and add them here in form (nonterminal,index)
-[('S', 1), ('S', 1), ('S', 2), ('S', 2), ('S', 4), ('A', 1), ('A', 1), ('A', 3), ('D', 0)]
-delete inaccesable oroductions
-{'S': ['aB', 'AC', 'A', 'a', 'ASC', 'BC', 'aD', 'AS', 'B', 'b', 'bS'], 'A': ['a', 'ASC', 'BC', 'aD', 'AS', 'B', 'b', 'bS'], 'B': ['b', 'bS'], 'D': ['abC', 'ab']}
-delete marked productions
-{'S': ['aB', 'a', 'aD', 'AS', 'b', 'bS'], 'A': ['a', 'aD', 'AS', 'b', 'bS'], 'B': ['b', 'bS'], 'D': ['ab']}
-transform into normal form(CNF)
-{'S': ['X1B', 'a', 'X1D', 'AS', 'b', 'X2S'], 'A': ['a', 'X1D', 'AS', 'b', 'X2S'], 'B': ['b', 'X2S'], 'D': ['ab'], 'X1': ['a'], 'X2': ['b']}
+---------------------------------------------------------------------------------
+Productions:
+P = {'S': ['bA', 'B'], 'A': ['a', 'aS', 'bAaAb', 'b'], 'B': ['AC', 'bS', 'aAa'], 'C': ['AB', 'epsilon'], 'E': ['BA']}
+
+Eliminate Epsilon:
+{'S': ['bA', 'B'], 'A': ['a', 'aS', 'bAaAb', 'b'], 'B': ['AC', 'bS', 'aAa'], 'C': ['AB'], 'E': ['BA']}
+
+Eliminate Unit Production:
+{'S': ['bA', 'AC', 'bS', 'aAa'], 'A': ['a', 'aS', 'bAaAb', 'b'], 'B': ['AC', 'bS', 'aAa'], 'C': ['AB'], 'E': ['BA']}
+
+Eliminate Innaccesible:
+{'S': ['bA', 'AC', 'bS', 'aAa'], 'A': ['a', 'aS', 'bAaAb', 'b'], 'B': ['AC', 'bS', 'aAa'], 'C': ['AB'], 'E': ['BA']}
+
+Chomsky Normal Form:
+X1 -> GA
+P = {'S0': ['S'], 'S': ['FA', 'AC', 'FS', 'Y'], 'A': ['a', 'GS', 'b', 'Y'], 'B': ['AC', 'FS', 'Y'], 'C': ['AB'], 'E': ['BA'], 'F': 'b', 'G': 'a', 'X1': 'GA'}
+---------------------------------------------------------------------------------
 ```
 
 

@@ -31,6 +31,8 @@ print("")
 
 accepts(automaton,"lamda")
 accepts(automaton,"abcdbdc")
+
+print("-------------------------------------------------------------------------------------")
 '''
 Lab2
 '''
@@ -95,54 +97,24 @@ print("the third grammer is: " + classify_grammar(grammer2))
 
 print("\n" + Is_DFA(automaton))
 
-
+print("----------------------------------------------------------------------------------")
 '''
 Lab 3
 
 '''
-string = '''
-public class Test {
 
-   public static void main(String args[]) {
-      int [] numbers = {10, 20, 30, 40, 50};
-      // printing !
-      for(int x : numbers ) {
-         System.out.print( x );
-         System.out.print(",");
-      }
-      System.out.print("\n");
-      String [] names = {"James", "Larry", "Tom", "Lacy"};
-      /*
-      looping over 
-      */
-      for( String name : names ) {
-         System.out.print( name );
-         System.out.print(",");
-      }
-   }
-}
-'''
-
-tokenize(string)
+input_string = "d = ( b * b ) - 4(a * c);"
+tokens = lexer(input_string)
+for token in tokens:
+    print(token)
+# tokenize(string)
+print("---------------------------------------------------------------------------------")
 '''
 
 Lab 4
 
 '''
-# Vn = ['S','A','B','C','D','E']
-# Vt = ['a','b']
-# S = 'S'
-# P = {
-#     "S": ["aB", "AC"],
-#     "A": ["a", "ASC", "BC", "aD"],
-#     "B": ["b", "bS"],
-#     "C": [None],
-#     "D": ["abC"],
-#     "E": ["aB"]
-# }
-# grammar_1 = Grammar(S,Vn,Vt,P)
-#
-# normalize(grammar_1)
+
 
 V_N = ['S', 'A', 'B', 'C', 'E']
 V_T = ['a', 'b']

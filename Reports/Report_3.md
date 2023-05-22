@@ -8,8 +8,11 @@
 ----
 
 ## Theory
-a lexer is a component of the compiler that breaks down each line of code into it's different keyword or (tokens) that define and operate in a given programming language after which they're passed to the parser
-that constructs an abstract parsing tree(AST) which will then be used to compile the program.
+A lexer is a component of the compiler that takes a stream of characters as input, then it  breaks down each line of code and outputs a sequence of tokens that define and operate in a given programming language
+
+The task of the lexer is to identify and group together the characters of the input stream that form individual tokens, such as keywords, identifiers, operators, and literals
+
+****Tokens**** within parsers correspond to ****terminal symbols**** within formal grammars.
 
 
 ## Objectives:
@@ -89,17 +92,31 @@ then we need to compare every lexeme to the list's of the keyword and classify t
 
 
 ## Conclusions / Screenshots / Results
-Results:
-for convenience resons i'll present the output
-for a line of code "int x = 5" the output will be like 
-```
-token: operator Value: int
-token: Definer Value: x
-token: Symbol Value: =
-token: number Value: 5
-```
-for a more complex test run i have an entire script in the code that i check
-## References
-how to build a lexer - https://medium.com/@pythonmembers.club/building-a-lexer-in-python-a-tutorial-3b6de161fe84
 
-technical asistance - chatGPT
+In this laboratory work I learned and implemented the lexer for simple mathematical calculations.
+I understood what lexical analysis is and got familiar with the inner workings of a tokenizer
+
+## Results:
+
+For the inputted string:  "int d = (b * b) - 4( a * c)" I got the following output:
+```
+----------------------------------------------------------------------------------
+('Identifier', 'd')
+('Operator', '=')
+('Lparen', '(')
+('Identifier', 'b')
+('Operator', '*')
+('Identifier', 'b')
+('Rparen', ')')
+('Operator', '-')
+('Literal', '4')
+('Lparen', '(')
+('Identifier', 'a')
+('Operator', '*')
+('Identifier', 'c')
+('Rparen', ')')
+('Separator', ';')
+---------------------------------------------------------------------------------
+```
+## References
+[1] [Lexical analysis](https://en.wikipedia.org/wiki/Lexical_analysis)

@@ -6,18 +6,52 @@
 ----
 
 ## Theory
-* Formal languages are sets of finite-length sequences of symbols constructed according to well-defined grammar rules. These languages describe programming languages and other language types. Grammar defines how symbols are combined to form valid strings using production rules. Different types of grammars, such as regular and context-free grammars, capture different language complexities. Grammar plays a crucial role in formal language theory, enabling analysis of language structure and behavior.
 
-* Finite state machines (FSMs) are mathematical models for recognizing and controlling formal languages. FSMs process symbols sequentially, transitioning between states based on rules. They can recognize, generate, and determine membership in a language. Various types of FSMs, such as deterministic and nondeterministic finite automata, have different capabilities. FSMs are essential for language processing and algorithm development.
+An instance of a **formal language** is a set of _words_ which are composed of _letters_.
+The set of words can be defined in many ways:
+
+-   by simply enumerating all the valid elements (words)
+-   by defining an alphabet and a grammar
+
+An **alphabet** is a set of letters.
+
+A **grammar** is a set of rules that define how to form valid words from the alphabet.
+
+A regular grammar is one in which all production rules in P are of one of the following forms:
+
+-   A → a
+-   A → aB
+-   A → ε
+
+where A, B, S ∈ N are non-terminal symbols, a ∈ Σ is a terminal symbol,
+and ε denotes the empty string, i.e. the string of length 0. S is called the start symbol.
+
+
+Finite state machines (FSMs) are mathematical models for recognizing and controlling formal languages. FSMs process symbols sequentially, transitioning between states based on rules. They can recognize, generate, and determine membership in a language. Various types of FSMs, such as deterministic and nondeterministic finite automata, have different capabilities. FSMs are essential for language processing and algorithm development.
 
 
 
 ## Objectives:
 
+* Understand what a language is and what it needs to have in order to be considered a formal one.
 
-* Get familiar with formal languages, regular grammars & finite automata.
-* Implement functionality for regular grammars and finite automata.
-* Showcase the execution of the program.
+* Provide the initial setup for the evolving project that you will work on during this semester. I said project because usually at lab works, I encourage/impose students to treat all the labs like stages of development of a whole project. Basically you need to do the following:
+
+    a. Create a local && remote repository of a VCS hosting service (let us all use Github to avoid unnecessary headaches);
+    
+    b. Choose a programming language, and my suggestion would be to choose one that supports all the main paradigms;
+    
+    c. Create a separate folder where you will be keeping the report. This semester I wish I won't see reports alongside source code files, fingers crossed;
+
+* According to my variant number (by universal convention it is register ID), get the grammar definition and do the following tasks:
+
+    a. Implement a type/class for your grammar;
+    
+    b. Add one function that would generate 5 valid strings from the language expressed by your given grammar;
+    
+    c. Implement some functionality that would convert and object of type Grammar to one of type Finite Automaton;
+    
+    d. For the Finite Automaton, please add a method that checks if an input string can be obtained via the state transition from it;
 
 
 ## Implementation description

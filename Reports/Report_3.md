@@ -24,81 +24,58 @@ The task of the lexer is to identify and group together the characters of the in
 
 ## Implementation description
 
-first we need to identifiy the keywords which the lexer will recognize as keywords
+I wrote a lexer for basic programming language expressions. Its job is to take an input string and split it into smaller parts called tokens. Each token represents a different part of the expression. B. Names, Numbers, Symbols, Parentheses. These tokens can be used by parsers to understand and interpret expressions. 
 ```
-symbols = ['{', '}', '(', ')', '[', ']', '.', '*', ':', ',', '=', '+', '-', ';'] # single-char keywords
-    punctiuation = ["'", '"']
-    long_comment = ['/*', '*/'] # multi-char keywords
-    short_comment = ['#','//']
-    keywords = ['public', 'main','static', 'void','for','System', 'out', 'print']
-    oprerators = ['String', 'int', 'double', 'float', 'bool', 'list', 'class']
-    KEYWORDS = symbols + long_comment + keywords + short_comment + oprerators
+import re
 ```
+First we begin by importing the built-in module called "re". This module gives us the libert to work with regular expresions.By importing "re," you can perform tasks like pattern matching, string searching, string replacement, and string splitting in your program.
+```
+TOKEN = [
+    ('Identifier', r'[a-zA-Z]\w*'),
+    ('Literal', r'\d+'),
+    ('Operator', r'[+\-*\/=]'),
+    ('Separator', r';'),
+    ('Lparen', r'\('),
+    ('Rparen', r'\)')
+]
+```
+We follow by created a list of tuples that define regular exporesions for different languages.Each of the defined token represents a specific element like identifiers, literals, operators,separators and parantheses.Regular expresions are used to math and identify wirh input string
+```
+    def lexer(input_string):
+    tokens = []
+```
+We then create a function `lexer` that will take as input `input_string`. The purpose of this function is to toxenize the `input_string`, by that we understand breaking it down into smaller units called tokens which can represent distinct elements, things like identifiers, operators, separators, parantheses. Additioanlly, inside the function an empty list called `tokens` is initialized.The list will have this identified tokens as the function processes the `input_string`.
+```
+    while input_string:
+        match = None
+        for token_type, regex_pattern in TOKEN:
+            regex = re.compile(regex_pattern)
+            match = regex.match(input_string)
+ ```
+ By this part of the code we we have a `while` loop that iterates as long as there is content in our `input_string`. Within a loop, for the `match` variable the value is atributed to `None`. Next, with `for` we enter in a loop that iterates over the `TOKEN` list, which contains token types and their regular expression patterns. For each token type and regex pattern pair, a regular expression object is created using `re.copile()` and stored in `regex` variable.Finally the `match` variable is updated as it tries to match `regex` patern against the `input_strirng` using `regex.match(input_string)`. This verifies if the beginning of the `input_string` matches the pattern specifies by the regular expression
+ ```
+            if match:
+                tokens.append((token_type, match.group(0)))
+                input_string = input_string[match.end():].lstrip()
+                break
+```
+Here we have an `if` statement that checks if a match was found using the regular expression pattern. If a match is found, it appends the matched token  to the `tokens` list and updated the `input_string`. The matched portion is removed usinf slicing `input_string[match.end():]` and removes leading whitespace using `lstrip()`. The `break` is used to exit the inner `for` as the match has been found and processed.
+````
+        if not match:
+            raise ValueError(f"Invalid input at position {len(input_string)}: {input_string}")
+    return tokens
+````
+Lastly we have an `if` statement that checks of no match was found using any of the regular expression patterns.If there is no match, it raises a `ValueError` with a specifiv error message which tells that the input position is invalid and so is the content of the input string at that possition.And at the end,the function returns the `tokens` list, which contains the identified tokens from the input string.
 
-now we need to break down the given script into it's smallest elements:(words,symbols,newlines) and here's the loop that goes through each character in the code and devides it:
-```
-    for i,char in enumerate(string):
-        if char == '*':
-            if string[i-1] == '/':
-                lexeme += '/*'
-            elif string[i+1] == '/':
-                lexeme += '*/'
-            else:
-                lexeme += '*'
-        elif char == '/':
-            if string[i+1] != '*' and string[i-1] != '*':
-                lexeme += '/'
-            else:
-                continue
-        elif char == '\n':
-            lexems.append(lexeme)
-            lexeme = ''
-        else:
-            if char != white_space:
-                lexeme += char # adding a char each time
-        if (i+1 < len(string)): # prevents error
-            if string[i+1] == white_space or string[i+1] in KEYWORDS or lexeme in KEYWORDS: # if next char == ' '
-                if lexeme != '':
-```
-which we take and add to a list called lexems
-```
-lexems.append(lexeme)
-lexeme = ''
-```
-then we need to compare every lexeme to the list's of the keyword and classify them accordingly
-*this is a part of the whole script
-```
- for string in lexems:
-        if string in long_comment:
-            print(f"token: comment_Operator Value: {string}")
-            longComment = not longComment
-        if string in short_comment:
-            print(f"token: comment_Operator Value: {string}")
-            isComment = True
-        if (isComment == True) and (string == '\n') or (string == '!'):
-            print(f"token: comment Value= !")
-            print(f"token: <newLine>")
-            isComment = False
-        if isOperator == True and string not in symbols:
-            print(f"token: Definer Value: {string}")
-            isOperator = False
-            definers.append(string)
-        elif longComment == True or isComment == True:
-            print(f"token: comment Value: {string}")
-        elif string == '\n':
-            print(f"token: <newline>")
-        elif string in symbols:
-```
 
 
 ## Conclusions / Screenshots / Results
 
-In this laboratory work I learned and implemented the lexer for simple mathematical calculations.
-I understood what lexical analysis is and got familiar with the inner workings of a tokenizer
-
+In this laboratory work I developed an initial implementation of a lexer in a programming language.The lexer takes an input string and breaks it down into tokens based on predefined patterns
+The code can be futher improved by adding whitespace as well as error handling howeverr in my few attemps and limited time I encoutered a blockage and was unable to solve it.
 ## Results:
 
-For the inputted string:  "int d = (b * b) - 4( a * c)" I got the following output:
+For the inputted string:  "int d = (b * b) - 4( a * c);" I got the following output:
 ```
 ----------------------------------------------------------------------------------
 ('Identifier', 'd')

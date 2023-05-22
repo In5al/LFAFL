@@ -10,10 +10,24 @@
 ## Theory
 * A finite state machine (FA) is a computational model that examines an input string to see if it belongs to a particular language. It consists of nodes representing states, edges representing transitions, and specified initial and final states. Based on the input, the FA traverses the nodes and edges and decides to accept or reject. To turn a finite state machine (FA) into a grammar, we focus on transitions within the state machine. A non-terminal variable in the grammar corresponds to the state of the FA. Connections are represented by values on transitions (labels on edges). The initial state of FA is indicated by an arrow and the final state is represented by a circle. By analyzing these components, we can set production rules and construct a grammar that produces the same language as FA.
 
-* The main difference between deterministic finite automata (DFA) and non-deterministic finite automata (NFA) is that in DFA each node (non-terminal variable) has only one transition to the next state for each terminal variable. In contrast, the NFA is to: There may be multiple transitions, even epsilon transitions (transitions that consume no input). To convert a nondeterministic finite state machine (NDFA) to a DFA, we need to create an equivalent DFA that understands the same language. It does this by considering all possible combinations of states in the NDFA and determining the appropriate next state based on the input symbols.
+Automata can be used to recognize formal languages, for example described by grammars.
+There are different types of automata that can describe different types of languages.
+For example:
 
-* The Chomsky hierarchy classifies formal grammars and languages into four types. Type 0 represents an unbounded grammar that can generate any language. Type 1 represents context-sensitive grammars used to model natural language syntax. Type 2 represents context-free grammars widely used in programming languages. Type 3 represents regular grammars used in regular expressions and pattern matching. Each type is more limited in power generation than the previous one. 
-* The powerset construction algorithm is a technique to generate all possible subsets of a given set. It works by starting with an empty set and gradually adding each element of the original set to each existing subset, creating new subsets along the way.
+-   A finite automaton (NFA/DFA, state machine) can describe a regular grammar (type 3)
+-   A pushdown automaton (PDA) can describe a context-free grammar (type 2)
+
+A DFA is equivalent in power to an NFA, even though NFA&rsquo;s are more flexible hierarchy in terms of powers.
+
+-   The conversion NFA -&gt; DFA can be done using the powerset construction.
+-   The conversion regular grammar -&gt; NFA and viceversa is straightforward.
+-   The conversion Grammar -&gt; DFA can&rsquo;t really be done directly,
+    instead go through the steps: Grammar -&gt; NFA -&gt; DFA.
+    
+    **NFA and DFA**
+*  A Finite Automata(FA) is said to be deterministic DFA if corresponding to an input symbol, there is a single resultant state, only one transition.
+*  A Finite Automata(FA) is said to be non-deterministic NFA if there is more than one possible transition from one state on the same input symbol.
+
 
 ## Objectives:
 

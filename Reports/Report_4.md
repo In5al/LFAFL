@@ -198,6 +198,13 @@ Lastly we update the production rules (self.P) by combining the dict dictionary 
 final = {}
         dict = {}
         flag = 0
+```        
+we initialize variables final, dict, and flag for their respective purposes:
+
+* final is an empty dictionary that will be used to store intermediate and final results during the transformation process.
+* dict is an empty dictionary that will be used to map terminal symbols to new nonterminal symbols.
+* flag is a counter variable that will be incremented to generate unique names for the new nonterminal symbols.      
+```        
         for production in self.P:
             for symbol in self.P[production]:
                 if len(symbol) > 1:
@@ -206,6 +213,16 @@ final = {}
                             final[chr(70 + flag)] = char
                             dict[char] = chr(70 + flag)
                             flag += 1
+```                            
+It iterates through each production in the grammar represented by self.P.
+For each production, it iterates through each symbol in that production.
+If a symbol has a length greater than 1 (i.e., more than one character), it further examines each character in the symbol.
+If the character is a terminal (belongs to self.VT) and has not already been assigned a nonterminal symbol, it proceeds to the next step.
+It assigns a new nonterminal symbol to the terminal character. The nonterminal symbol is generated based on the value of flag using the chr(70 + flag) expression.
+It adds the mapping of the terminal character to the corresponding nonterminal symbol in the final dictionary.
+It adds the mapping of the terminal character to the assigned nonterminal symbol in the dict dictionary.
+It increments the flag value to ensure a unique nonterminal symbol for each terminal character.
+```
 
         for item in dict.keys():
             for production in self.P:
@@ -213,11 +230,15 @@ final = {}
                     if len(self.P[production][i]) > 1:
                         self.P[production][i] = self.P[production][i].replace(item, dict[item])
 ```
-To keep track of all new non-terminal symbols and their corresponding productions, it builds a dictionary. The process then repeats for each production that has more than two symbols across all of the products.
-```
+It iterates over each key in the dict dictionary, which contains mappings between terminal symbols and their corresponding nonterminal symbols.
+For each key (terminal symbol), it iterates over each production in the grammar represented by self.P.
+For each production, it iterates over each index of the production's list of symbols.
+If the symbol at the current index has a length greater than 1 (i.e., more than one character), it replaces occurrences of the terminal symbol (stored in item) with its corresponding nonterminal symbol (retrieved from dict[item]).
+The replacement is performed using the replace() method, which substitutes all occurrences of the terminal symbol with the corresponding nonterminal symbol within the given production.
+
 
 ## Conclusions / Screenshots / Results
-After completing this laboratory work, I learnt how to convert CFG into CNF. In order to complete all the necessary steps and observe the immediate results, I implemented different functions.
+During this laboratory, I've understood how to convert a grammar into Chomsky Normal Form. I discovered that by assigning special symbols to longer terminal symbols and replacing them in the productions, we can follow the rules of Chomsky Normal Form. This makes the grammar easier to work with and understand. I also saw the importance of standardizing grammars to make them more useful for tasks like generating and analyzing strings
 
 ## Output
 

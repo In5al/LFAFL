@@ -204,17 +204,20 @@ In this lab, we started working with grammars and automata and demonstrated thei
 
 ## Final Results:
 ```
-{'states': {'F', 'E', 'D', 'L', 'S'}, 'transitions': {'F': [('d', 'D')], 'E': [('c', 'F'), ('d', 'L')], 'D': [('b', 'E')], 'L': [('a', 'L'), ('b', 'L'), ('c', None)], 'S': [('a', 'D')]}, 'start_state': 'S', 'accepting_states': {'L'}}
+-------------------------------------------------------------------------------------
+the automaton based on the given grammar
+{'states': {'L', 'F', 'E', 'S', 'D'}, 'transitions': {'L': [('a', 'L'), ('b', 'L'), ('c', None)], 'F': [('d', 'D')], 'E': [('c', 'F'), ('d', 'L')], 'S': [('a', 'D')], 'D': [('b', 'E')]}, 'start_state': 'S', 'accepting_states': {'L'}}
 
 here are 5 words from given grammar
-abdabac
-abdc
-abdc
-abdaac
-abdbbbbc
+None
+abcdbdc
+None
+None
+abdbac
 
 lamda is not in this grammer
 abcdbdc is in this grammer
+-------------------------------------------------------------------------------------
 ```
 
 "abdabac" - This word is not in the grammar.

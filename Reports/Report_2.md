@@ -8,7 +8,12 @@
 ----
 
 ## Theory
-* A finite state machine (FA) is a computational model that examines an input string to see if it belongs to a particular language. It consists of nodes representing states, edges representing transitions, and specified initial and final states. Based on the input, the FA traverses the nodes and edges and decides to accept or reject. To turn a finite state machine (FA) into a grammar, we focus on transitions within the state machine. A non-terminal variable in the grammar corresponds to the state of the FA. Connections are represented by values on transitions (labels on edges). The initial state of FA is indicated by an arrow and the final state is represented by a circle. By analyzing these components, we can set production rules and construct a grammar that produces the same language as FA.
+ There are 4 types of grammar according to Chomsky Classification: <p>
+    
+* Type 0 – Unrestricted
+* Type 1 – Context-Sensitive
+* Type 2 – Context-Free
+* Type 3 – Regular
 
 Automata can be used to recognize formal languages, for example described by grammars.
 There are different types of automata that can describe different types of languages.

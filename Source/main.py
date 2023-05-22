@@ -7,6 +7,8 @@ import visual_automata
 from visual_automata.fa.nfa import *
 from automata.fa.dfa import DFA
 import os
+
+print("-------------------------------------------------------------------------------------")
 os.environ["PATH"] += os.pathsep + 'D:/Program Files (x86)/Graphviz2.38/bin/'
 # Define the regular grammar
 grammar = {

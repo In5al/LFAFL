@@ -8,96 +8,162 @@
 ----
 
 ## Theory
-* what's a FA? an FA is more of a checking mechanism and a better way to represent a formal language, it's a set of nodes(non-terminal var's) connected by            vertices(terminal variables) that represent the language's states,transetions,final states and initial state.
-* to convert a FA into a grammer we need to look mainly on the transitions of the automaton, our non-terminal variables will be the states, the terminal will be the 
-values in the transitions (the value on the vertice) and the initial state is indicated by the arrow, and final states by circles.
-* the difference between DFA and NFA is very simple: in a DFA every node(nonterminal var) has one and only one transition for each terminal variable to a next state and NFA have more than one and epsilon transitions.
-* The powerset construction algorithm is a method used to find all possible subsets of a given set. It works by iteratively building a new set of subsets, starting with the empty set, and adding each element of the original set to each existing subset to create new subsets.
+* A finite state machine (FA) is a computational model that examines an input string to see if it belongs to a particular language. It consists of nodes representing states, edges representing transitions, and specified initial and final states. Based on the input, the FA traverses the nodes and edges and decides to accept or reject. To turn a finite state machine (FA) into a grammar, we focus on transitions within the state machine. A non-terminal variable in the grammar corresponds to the state of the FA. Connections are represented by values on transitions (labels on edges). The initial state of FA is indicated by an arrow and the final state is represented by a circle. By analyzing these components, we can set production rules and construct a grammar that produces the same language as FA.
+
+* The main difference between deterministic finite automata (DFA) and non-deterministic finite automata (NFA) is that in DFA each node (non-terminal variable) has only one transition to the next state for each terminal variable. In contrast, the NFA is to: There may be multiple transitions, even epsilon transitions (transitions that consume no input). To convert a nondeterministic finite state machine (NDFA) to a DFA, we need to create an equivalent DFA that understands the same language. It does this by considering all possible combinations of states in the NDFA and determining the appropriate next state based on the input symbols.
+
+* The Chomsky hierarchy classifies formal grammars and languages into four types. Type 0 represents an unbounded grammar that can generate any language. Type 1 represents context-sensitive grammars used to model natural language syntax. Type 2 represents context-free grammars widely used in programming languages. Type 3 represents regular grammars used in regular expressions and pattern matching. Each type is more limited in power generation than the previous one. 
+* The powerset construction algorithm is a technique to generate all possible subsets of a given set. It works by starting with an empty set and gradually adding each element of the original set to each existing subset, creating new subsets along the way.
 
 ## Objectives:
 
-* Understand what an automaton is and what it can be used for.
-* Implement conversion of a finite automaton to a regular grammar.
-* Determine whether your FA is deterministic or non-deterministic.
-* Implement some functionality that would convert an NDFA to a DFA.
-* Represent the finite automaton graphically
+* Provide a function in your grammar type/class to classify the grammar based on the Chomsky hierarchy.
+* Implement the conversion algorithm to transform a finite automaton (FA) into a regular grammar.
+* Determine if the given FA is deterministic or non-deterministic.
+*  Develop functionality to convert a nondeterministic finite automaton (NDFA) to a deterministic finite automaton (DFA).
 
 
 ## Implementation description
-* first of all to classify the grammar acording to chomsky hierchy i created a function called classify_grammer(in the grammar file) that takes atr. the grammar(the production table) and classifies it by checking the grammer against every type's rule
-
-first we check if the grammer is regular by checking the number of non-terminals on the left and if it matches we check the right side of the production to check if it's left or right side production
+```
+def classify_grammar(grammar):
+    is_regular = True
+```
+To classify the grammar according to the Chomsky hierarchy, a function called `classify_grammar` was created in the grammar file. This function takes the grammar (production table) as input and determines its classification by comparing it against the rules of each grammar type.
 ```
         for production in grammar[nonterminal]:
             if len(production) > 2:
                 is_regular = False
-                break
+                break             
+```
+
+At this moment we check each production rule for a specific nonterminal in the grammar and sets the `is_regular` flag to False if any production rule has a   length greater than 2, breaking the loop.               
+```
             if len(production) == 2:
                 if (production[0].islower() and production[1].islower()) or (production[0].isupper() and production[1].isupper()):
                     is_regular = False
                     break
 ```
-then we check if the grammer is a context free grammer by checking if the number of the nonterminals in the right side larger or equal to the left side
+Additionally code sets the `is_regular` flag to False and breaks the loop if a production rule has a length of 2 and both symbols in the rule are either both lowercase letters (terminals) or both uppercase letters (nonterminals).In both cases it results that we are not dealing with regular grammar so we check if it's part of the other types.To note that it starts as Regular as it is the most restrained type and we slowly are making our way to Unrestricted Grammar
 ```
         for production in grammar[nonterminal]:
             if len(production) < len(nonterminal) or len(nonterminal) < 2:
                 is_context_sensitive = False
                 break
+```
+As we verify for the second type here we set the `is_context_sensitive` flag to False and break the loop if a production rule has a length smaller than the length of the nonterminal or if the length of the nonterminal itself is less than 2. This indicates that the grammar does not satisfy the conditions of a context-sensitive grammar.
+```
         if not is_context_sensitive:
             break
     if is_context_sensitive:
         return "Type 2: Context-free grammar"
 ```
-then we Check if the grammar is a context-free grammar and after excluding that it can't be niether regular or context-free we just need to check that the left part non-terminals are more than one symbol
+Now if the is_context_sensitive flag is False, meaning that at least one production rule did not satisfy the conditions(but they both confirm if it's of a Type 2), then we break the loop. But, if the flag remains True after checking all the production rules, then e can assumme that we have Type 1 known as a Context-Free grammar 
 ```
 is_context_free = True
     for nonterminal in grammar:
         if len(nonterminal) > 1:
             is_context_free = False
+            
+ ```
+ We continue to add more conditions so that we would know how to classify our grammar here we initialize the `is_context_free` flag as True. It then iterates through each nonterminal in the grammar. If a nonterminal has a length greater than 1, it means that the grammar does not satisfy the conditions of a `context-free grammar`. In this case, the `is_context_free` flag is set to False, indicating that the grammar is not context-free.But that doesnt't mean it is Context Sensitive either
+ ```
     if is_context_free:
         return "Type 1: Context-sensitive grammar"
 ```
-and if none of the above it's type 0
+If the `is_context_free` flag is True, which implies that all nonterminals have a length of 1, then we have a Context-Sensitive-Grammar and that is confirmed by the return message. So we see that the program checks at every level what type of grammar we have it can become more restrained or less 
 ```
  If none of the above conditions are met, the grammar is an unrestricted grammar
     return "Type 0: Unrestricted grammar"
 ```
 
-* to convert the FA back to a grammer i added a the function "fa_to_grammer"(in the automaton file) that takes the automaton as an atr and converts into a grammer by looking at the transactions and taking every state and deriving it to the production first and secound element and to just the first if it's a terminal state.
-we take the transition table from the automaton as an attribute and use it to create the production table(grammer) as we take every nonterminal from the transitions and pair it with the left side one by one
+And laslty, if not a single requiremt is met, which means that not a single classification was fitted for our grammar, then we have a Type 0,known as Unrestricted Grammar.So we return that.
+```
+def fa_to_grammar(automaton):
+```
+To convert the  Finite Automata back to Grammar we introduced a new function and that is `fa_to_grammar`. We added it in the automaton file. The function converts a finite automaton back into a grammar representation. It accomplishes this by examining the transitions of the automaton and generating production rules based on the states. The function differentiates between terminal and non-terminal states when deriving the production rules
+
 ```
 grammer = []
     for state in automaton['transitions']:
         num = 0
+```
+we begin by initializeing an empty list called "grammar" and a variable "num" with a value of 0.
+```     
         for transition in automaton['transitions'][state]:
             if automaton['transitions'][state][num][1] == None:
                 grammer.append(state + " -> " + automaton['transitions'][state][num][0])
+ ```
+ For each transition in the transitions of the given state, if the second element of the transition is None( meaning it's an epsilon transition),then we append a production rule to the "grammar" list, where the left-hand side is the current state and the right-hand side is the first element of the transition.
+
+ ```                
             else:
                 grammer.append(state + " -> " + automaton['transitions'][state][num][0] + automaton['transitions'][state][num][1])
             num = num + 1
 
     return grammer
 ```
+And if the transitions where the second element is not None (an non-epsilon transitions), then we append a production rule to the "grammar" list. The left-hand side of the rule is the current state, and the right-hand side consists of concatenating the first and second elements of the transition.
 
-* after that i implemented the nfa to dfa conversion algorithm using the powerset construction alogrithm in the function nfa_to_dfa that takes the nfa and the start state as atributes and generates a dfa using the new class FA that constructs FA's for convinient use.
-first we need to calculate epsilon closoure so we take the start symbol and look for any epsilon transaction in the nfa and return the start symbol or the combination(frozenset) of symbols
+After iterating through all the transitions, the function returns the "grammar" list containing the generated production rules.
 ```
+def epsilon_closure(nfa, states):
  closure = set(states)
     queue = list(states)
+```    
+Then we have a function named epsilon_closure that takes an NFA and a set of states as input parameters.We initialize a "closure" set with the states, and a "queue" list with the same states
+```
     while queue:
         curr_state = queue.pop(0)
+```
+Within each iteration of the loop, the `curr_state` variable is assigned the value popped from the front of the "queue" list using the pop(0) method. This means that the first element in the queue is removed and assigned to `curr_state` for further processing
+```
+        
         for next_state in nfa.transitions.get((curr_state, None), []):
             if next_state not in closure:
                 closure.add(next_state)
                 queue.append(next_state)
     return frozenset(closure)
 ```
+ For each `next_state` in the list of transitions from the current state ("curr_state") with an epsilon symbol (None), the code checks if the `next_state` is not already in the "closure" set. If it is not in the "closure" set, the `next_state` is added to the "closure" set and appended to the "queue" list for further processing.
+
+
+
 then starting from the start symbol that we calculated with the epsilon closure we start to go through each symbol and go through the transitions adding every new symbol or frozenset to the symbols and checking every combination until the last symbol.
 ```
-# Process the remaining states of the DFA
+# def nfa_to_dfa(nfa, start_state):
+    dfa_states = set()
+    dfa_transitions = {}
+    dfa_start_state = frozenset([start_state])
+    dfa_accept_states = set()
+    
+  ```
+  And here we have the function that converts Nondeterministic Finite Automaton to Deterministic.We start by initializing an empty set called dfa_states to store the states of the DFA followed by an empty dictionary called `dfa_transitions` to store the transitions of the DFA.The `dfa_start_state` is set to a frozenset containing the start_state of the NFA while he `dfa_accept_states` is an empty set initially, which will later store the accept states of the DFA.
+  ```
+    
+
+    # Compute the epsilon closure of the start state
+    start_closure = epsilon_closure(nfa, dfa_start_state)
+  ```
+  The `start_closure` calls the `epsilon_closure` function, the function we previously analzised.The function has `nfa` and `dfa_start_state` as arguments. The function will computes the epsilon closure of the initial state of the DFA to determine the set of states reachable from the initial state through epsilon transitions.
+
+  ```
+
+    # Add the start state and its epsilon closure to the DFA
+    dfa_states.add(dfa_start_state)
+    if any(state in nfa.accept_states for state in start_closure):
+        dfa_accept_states.add(dfa_start_state)
+        
+   ```
+   `The dfa_start_state` is added to `dfa_states set`, indicating that it is one of the states in the DFA.We then if any state in the `start_closure` (epsilon closure of the initial state) is also present in the NFA's `accept_states`. If there is at least one matching state, it means that the DFA's initial state is an accept state, so it is added to the `dfa_accept_states` set.
+   ```
+
+    # Process the remaining states of the DFA
     queue = [dfa_start_state]
     while queue:
         curr_state = queue.pop(0)
+```
+Within each iteration of the loop, the `curr_state` variable is assigned the value popped from the front of the queue list using the pop(0) method. This means that the first element in the queue is removed and assigned to `curr_state` for further processing.
+```
 
         # Compute the transitions from the current state on each input symbol
         for symbol in nfa.alphabet:
@@ -105,29 +171,47 @@ then starting from the start symbol that we calculated with the epsilon closure 
             for state in curr_state:
                 next_states |= set(nfa.transitions.get((state, symbol), []))
             next_states = epsilon_closure(nfa, next_states)
+ ```
+ For each symbol in the NFA's alphabet, we initialize an empty set `next_states` to store the next states. It then iterates over each state in the `curr_state` set and retrieves the transitions for the current state and symbol using `nfa.transitions.get((state, symbol), [])`. The resulting states are added to the `next_states` set using the union operator `|=`.
+
+After that, the `next_states` set is updated by computing its epsilon closure using the `epsilon_closure` function. This ensures that all epsilon transitions from the next states are included in the set.
+ ```
 
             if next_states:
                 # Add the new state and transition to the DFA
                 if next_states not in dfa_states:
                     dfa_states.add(next_states)
+ ```
+ If the `next_states` set is not empty which tells us there are valid transitions for the current state and symbol, then w check if the `next_states` set is not already present in the `dfa_states set`. If it is not present, it means that this is a new state for the DFA, so it is added to  `dfa_states set`.
+ ```
                     if any(state in nfa.accept_states for state in next_states):
                         dfa_accept_states.add(next_states)
                     queue.append(next_states)
                 dfa_transitions[(curr_state, symbol)] = next_states
+
  ```
+ If any state in the `next_states set` is present in the NFA's` accept_states`, it means that the DFA has reached an accept state, so the `next_states` set is added to the `dfa_accept_states` set.The `next_states` set is then appended to the queue list for further exploration.Finally, the DFA's transition from the `curr_state` to `next_states` for the current symbol is recorded in the `dfa_transitions` dictionary.
+ 
  then we construct the new DFA from the new transitions without the epsilon transitions
  ```
  # Create the DFA object
     dfa = FA(dfa_states, nfa.alphabet, dfa_transitions, dfa_start_state, dfa_accept_states)
     return dfa
 ```
-* to determine if the FA is deterministic or not i implemented a methode in the automaton file that checks if the automaton has duplicated transitions or epsilon transition from each state.
+We follow by creating  DFA object with the `dfa_states` as the set of states, `nfa.alphabet` as the alphabet, `dfa_transitions` as the transition table, `dfa_start_state` as the start state, and `dfa_accept_states` as the set of accept states.
+
+
+
+to determine if the FA is deterministic or not we create a new method in the automaton file that checks if the automaton has duplicated transitions or epsilon transition from each state.
 ```
     for state in automaton['transitions']:
         for production in automaton['transitions'][state]:
             if production[0][0] == '':
                 return False
             num = 0
+```
+This part iterates over each state in the automaton's transitions. For each state, it further iterates over each production in the transitions. It checks if the first character of the production's first element is an empty string (''). If it is, it means there is an empty transition, and the code returns False, indicating that the automaton is not valid.
+```
             for _ in automaton['transitions'][state]:
                 if production[0][0] == _[0][0]:
                     num = num + 1
@@ -135,26 +219,11 @@ then starting from the start symbol that we calculated with the epsilon closure 
                         return "the FA isn't deterministic"
     return "the FA is deterministic"
 ```
-* i tried implementing the graphical presentation using visual_automata library but i kept giving me an infinite automaton error although it reaches all the end states normally so i just printed all the vertices and nodes in the terminal
-```
-digraph G {
-rankdir=LR;
-S [fillcolor="#66cc33", style=filled];
-Q [peripheries=2];
-P [peripheries=2];
-S -> P  [label=a];
-S -> Q  [label=b];
-Q -> Q  [label=e];
-Q -> Q  [label=f];
-Q -> Q  [label=a];
-P -> P  [label=b];
-P -> P  [label=c];
-P -> Q  [label=d];
-P -> P  [label=e];
-}
-```
+Here it iterates over each production in the transitions of the current state. For each production, it compares the first character of its first element with the first character of the first element in the previously encountered productions. If they match, it means there are multiple transitions with the same input symbol from the current state, indicating non-determinism. In such a case, the code returns the message "the FA isn't deterministic".
 
-* for testing i created 4 additional grammers to check the classify methode and for the dfa to grammer methode i generated the new grammer and compared it to the original one in the main file should be all the testing code and the results presented in the terminal if run
+If no non-deterministic transitions are found, the code returns the message "the FA is deterministic", indicating that the automaton is deterministic.
+
+The code includes four additional grammars to verify the classification results As for dfa to grammer method we can check if it checks out and is proved to be like the original
 ```
 nfa = FA(nfa_states, nfa_alphabet, nfa_transitions, nfa_start_state, nfa_accept_states)
 
@@ -170,31 +239,18 @@ print("\n" + Is_DFA(automaton))
 ```
 
 ## Conclusions / Screenshots / Results
-in this lab i learned more about the NFA and DFA automatons and the main defirences between them and how to convert an NFA into a DFA in code (which wasn't easy) and learned more about every type in the chomsky hierchy and some interesting external libraries that have all this implemented that can be easly used.
+In this lab, we explored NFA and DFA automatons, focusing on their differences and conversion processes. We learned to convert an NFA into a DFA and gained insights into the Chomsky hierarchy, which categorizes grammars. We implemented functions to classify grammars based on their Chomsky type and convert NFAs to regular grammars. Additionally, we examined determinism in automatons.
 
 ## Output:
-i kept the results as is from last lab to keep proof that everything works still 
-
-the automaton based on the given grammar
-{'states': {'S', 'Q', 'P'}, 'transitions': {'S': [('a', 'P'), ('b', 'Q')], 'Q': [('e', 'Q'), ('f', 'Q'), ('a', None)], 'P': [('b', 'P'), ('c', 'P'), ('d', 'Q'), ('e', None)]}, 'start_state': 'S', 'accepting_states': {'Q', 'P'}}
-
-here are 5 words from given grammer
-ada
-acdfa
-adfea
-ada
-bfefea
-
-ace is in this grammer
-ohno is not in this grammer
+```
 
  the set of productions of the generated grammer
-['S -> aP', 'S -> bQ', 'Q -> eQ', 'Q -> fQ', 'Q -> a', 'P -> bP', 'P -> cP', 'P -> dQ', 'P -> e']
+['D -> bE', 'L -> aL', 'L -> bL', 'L -> c', 'S -> aD', 'E -> cF', 'E -> dL', 'F -> dD']
 True
 equal to the original
 
 the productions of the DFA
-{(frozenset({'q0'}), 'a'): frozenset({'q0', 'q1'}), (frozenset({'q0', 'q1'}), 'c'): frozenset({'q1'}), (frozenset({'q0', 'q1'}), 'a'): frozenset({'q0', 'q1'}), (frozenset({'q0', 'q1'}), 'b'): frozenset({'q2'}), (frozenset({'q1'}), 'c'): frozenset({'q1'}), (frozenset({'q1'}), 'b'): frozenset({'q2'}), (frozenset({'q2'}), 'b'): frozenset({'q3'}), (frozenset({'q3'}), 'a'): frozenset({'q1'})}
+{(frozenset({'q0'}), 'a'): frozenset({'q1'}), (frozenset({'q1'}), 'a'): frozenset({'q1'}), (frozenset({'q1'}), 'b'): frozenset({'q2'}), (frozenset({'q2'}), 'b'): frozenset({'q3', 'q2'}), (frozenset({'q3', 'q2'}), 'a'): frozenset({'q1'}), (frozenset({'q3', 'q2'}), 'b'): frozenset({'q3', 'q2'})}
 
 the original grammer is: Type 3: Regular grammar
 the first grammer is: Type 2: Context-free grammar
@@ -202,23 +258,4 @@ the secound grammer is: Type 1: Context-sensitive grammar
 the third grammer is: Type 0: Unrestricted grammar
 
 the FA is deterministic
-
-digraph G {
-rankdir=LR;
-S [fillcolor="#66cc33", style=filled];
-Q [peripheries=2];
-P [peripheries=2];
-S -> P  [label=a];
-S -> Q  [label=b];
-Q -> Q  [label=e];
-Q -> Q  [label=f];
-Q -> Q  [label=a];
-P -> P  [label=b];
-P -> P  [label=c];
-P -> Q  [label=d];
-P -> P  [label=e];
-}
-
-
-Process finished with exit code 0
-
+```

@@ -71,7 +71,7 @@ Lastly we have an `if` statement that checks of no match was found using any of 
 
 ## Conclusions / Screenshots / Results
 
-In this laboratory work I developed an initial implementation of a lexer in a programming language.The lexer takes an input string and breaks it down into tokens based on predefined patterns
+In this laboratory work I developed an initial implementation of a lexer in a programming language.The lexer takes an input string and breaks it down into tokens based on predefined patterns <br />
 The code can be futher improved by adding whitespace as well as error handling howeverr in my few attemps and limited time I encoutered a blockage and was unable to solve it.
 ## Results:
 

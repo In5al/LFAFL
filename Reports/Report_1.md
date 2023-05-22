@@ -26,12 +26,6 @@ A regular grammar is one in which all production rules in P are of one of the fo
 where A, B, S ∈ N are non-terminal symbols, a ∈ Σ is a terminal symbol,
 and ε denotes the empty string, i.e. the string of length 0. S is called the start symbol.
 
- There are 4 types of grammar according to Chomsky Classification: <p>
-    
-* Type 0 – Unrestricted
-* Type 1 – Context-Sensitive
-* Type 2 – Context-Free
-* Type 3 – Regular
 
 Finite state machines (FSMs) are mathematical models for recognizing and controlling formal languages. FSMs process symbols sequentially, transitioning between states based on rules. They can recognize, generate, and determine membership in a language. Various types of FSMs, such as deterministic and nondeterministic finite automata, have different capabilities. FSMs are essential for language processing and algorithm development.
 

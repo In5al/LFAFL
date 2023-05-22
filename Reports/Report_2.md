@@ -279,14 +279,15 @@ In this lab, we explored NFA and DFA automatons, focusing on their differences a
 
 ## Output:
 ```
+-------------------------------------------------------------------------------------
 
  the set of productions of the generated grammer
-['D -> bE', 'L -> aL', 'L -> bL', 'L -> c', 'S -> aD', 'E -> cF', 'E -> dL', 'F -> dD']
+['F -> dD', 'D -> bE', 'L -> aL', 'L -> bL', 'L -> c', 'E -> cF', 'E -> dL', 'S -> aD']
 True
 equal to the original
 
 the productions of the DFA
-{(frozenset({'q0'}), 'a'): frozenset({'q1'}), (frozenset({'q1'}), 'a'): frozenset({'q1'}), (frozenset({'q1'}), 'b'): frozenset({'q2'}), (frozenset({'q2'}), 'b'): frozenset({'q3', 'q2'}), (frozenset({'q3', 'q2'}), 'a'): frozenset({'q1'}), (frozenset({'q3', 'q2'}), 'b'): frozenset({'q3', 'q2'})}
+{(frozenset({'q0'}), 'a'): frozenset({'q1'}), (frozenset({'q1'}), 'b'): frozenset({'q2'}), (frozenset({'q1'}), 'a'): frozenset({'q1'}), (frozenset({'q2'}), 'b'): frozenset({'q2', 'q3'}), (frozenset({'q2', 'q3'}), 'b'): frozenset({'q2', 'q3'}), (frozenset({'q2', 'q3'}), 'a'): frozenset({'q1'})}
 
 the original grammer is: Type 3: Regular grammar
 the first grammer is: Type 2: Context-free grammar
@@ -294,4 +295,5 @@ the secound grammer is: Type 1: Context-sensitive grammar
 the third grammer is: Type 0: Unrestricted grammar
 
 the FA is deterministic
+----------------------------------------------------------------------------------
 ```

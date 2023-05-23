@@ -141,7 +141,7 @@ def build_ast(input_string):
 
 The build_ast function takes an input string, breaks it down into tokens, and uses those tokens to construct an Abstract Syntax Tree (AST) that represents the structure of the code. It acts like a translator and puzzle solver, transforming the input into a more organized and meaningful form. The purpose is to facilitate further processing and understanding of the code.
 
-```
+
 
 
 ## Conclusion

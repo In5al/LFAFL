@@ -2,6 +2,7 @@ from Source.Grammar.grammer import *
 from Source.Automaton.automaton import *
 from Source.Grammar.lexer import *
 from Source.Grammar.CNF import *
+from Source.Grammar.parser import *
 from visual_automata.fa.dfa import VisualDFA
 import visual_automata
 from visual_automata.fa.nfa import *
@@ -146,4 +147,16 @@ grammar.eliminate_nonproductive_inaccessible()
 print('\nChomsky Normal Form:')
 grammar.Chomsky()
 
+print("---------------------------------------------------------------------------------")
+'''
+Lab 5
+'''
+
+# Example usage
+input_string = "d = ( b * b ) - 4 * ( a * c );"
+tokens = lexer(input_string)
+for token in tokens:
+    print(token)
+parser = Parser(tokens)
+parser.parse()
 print("---------------------------------------------------------------------------------")

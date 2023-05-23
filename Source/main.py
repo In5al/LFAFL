@@ -152,11 +152,7 @@ print("-------------------------------------------------------------------------
 Lab 5
 '''
 
-# Example usage
-input_string = "d = ( b * b ) - 4 * ( a * c );"
-tokens = lexer(input_string)
-for token in tokens:
-    print(token)
-parser = Parser(tokens)
-parser.parse()
+input_string = "d = (b * b) - 4 * (a * c);"
+ast = build_ast(input_string)
+print("AST:", ast)
 print("---------------------------------------------------------------------------------")

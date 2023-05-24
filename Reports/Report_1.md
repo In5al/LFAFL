@@ -206,18 +206,19 @@ In this lab, we started working with grammars and automata and demonstrated thei
 ```
 -------------------------------------------------------------------------------------
 the automaton based on the given grammar
-{'states': {'L', 'F', 'E', 'S', 'D'}, 'transitions': {'L': [('a', 'L'), ('b', 'L'), ('c', None)], 'F': [('d', 'D')], 'E': [('c', 'F'), ('d', 'L')], 'S': [('a', 'D')], 'D': [('b', 'E')]}, 'start_state': 'S', 'accepting_states': {'L'}}
+{'states': {'F', 'S', 'D', 'L', 'E'}, 'transitions': {'F': [('d', 'D')], 'S': [('a', 'D')], 'D': [('b', 'E')], 'L': [('a', 'L'), ('b', 'L'), ('c', None)], 'E': [('c', 'F'), ('d', 'L')]}, 'start_state': 'S', 'accepting_states': {'L'}}
 
-here are 5 words from given grammar
+Five words generated from the given grammar
+abdaaaabc
 None
-abcdbdc
+abdc
+abdabc
 None
-None
-abdbac
 
 lamda is not in this grammer
 abcdbdc is in this grammer
 -------------------------------------------------------------------------------------
+
 ```
 
 "abdabac" - This word is not in the grammar.
